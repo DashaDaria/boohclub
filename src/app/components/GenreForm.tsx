@@ -63,7 +63,7 @@ export default function GenreForm() {
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                     <label className="block text-sm font-medium text-gray-700">
-                        Name
+                        Name*
                     </label>
                     <select
                         name="name"
@@ -85,7 +85,7 @@ export default function GenreForm() {
 
                 <div className="space-y-2">
                     <label className="block text-sm font-medium text-gray-700">
-                        Genre
+                        Genre*
                     </label>
                     <input
                         type="text"

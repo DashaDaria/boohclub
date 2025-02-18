@@ -1,0 +1,110 @@
+{
+  "id": "5214dbde-4c9a-4187-9d4b-38846e515847",
+  "prevId": "1fffb59b-1367-4333-abfd-b5b52708cd2c",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.criteria_table": {
+      "name": "criteria_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nuance": {
+          "name": "nuance",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "criteria_table_category_unique": {
+          "name": "criteria_table_category_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "category"
+          ]
+        },
+        "criteria_table_nuance_unique": {
+          "name": "criteria_table_nuance_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "nuance"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users_table": {
+      "name": "users_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "firstName": {
+          "name": "firstName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastName": {
+          "name": "lastName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_table_email_unique": {
+          "name": "users_table_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

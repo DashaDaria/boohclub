@@ -10,9 +10,8 @@
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:reset": "tsx src/db/reset.ts",
-    "db:seed": "tsx src/db/seed.ts",
     "db:migrate": "drizzle-kit migrate",
-    "db:fresh": "yarn db:reset && yarn db:migrate && yarn db:seed"
+    "db:fresh": "yarn db:reset && yarn db:migrate"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

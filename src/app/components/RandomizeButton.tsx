@@ -5,6 +5,8 @@ import { SelectCriteria } from 'src/db/schema';
 
 interface RandomCombinationProps {
     genres: SelectCriteria[];
+    onRandomize?: (genreNuance: string) => Promise<void>;
+    disabled: boolean;
 }
 
 interface RandomResult {
@@ -12,32 +14,44 @@ interface RandomResult {
     nuance: string | null;
 }
 
-export default function RandomizeButton({ genres }: RandomCombinationProps) {
+export default function RandomizeButton({ genres, onRandomize, disabled }: RandomCombinationProps) {
     const [randomResult, setRandomResult] = useState<RandomResult | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleRandomize = () => {
+    const handleRandomize = async () => {
         if (genres.length === 0) return;
+        setIsLoading(true);
 
-        // Filter out genres with categories and nuances
-        const availableCategories = genres.map(g => g.category);
-        const availableNuances = genres
-            .filter(g => g.nuance)
-            .map(g => g.nuance as string);
+        try {
+            const availableCategories = genres.map(g => g.category);
+            const availableNuances = genres
+                .filter(g => g.nuance)
+                .map(g => g.nuance as string);
 
-        // Get random category
-        const randomCategory = availableCategories[
-            Math.floor(Math.random() * availableCategories.length)
-        ];
+            const randomCategory = availableCategories[
+                Math.floor(Math.random() * availableCategories.length)
+            ];
 
-        // Get random nuance (can be null if no nuances available)
-        const randomNuance = availableNuances.length > 0
-            ? availableNuances[Math.floor(Math.random() * availableNuances.length)]
-            : null;
+            const randomNuance = availableNuances.length > 0
+                ? availableNuances[Math.floor(Math.random() * availableNuances.length)]
+                : null;
 
-        setRandomResult({
-            category: randomCategory,
-            nuance: randomNuance
-        });
+            const newResult = {
+                category: randomCategory,
+                nuance: randomNuance
+            };
+            setRandomResult(newResult);
+
+            // Call OpenAI with the random combination if onRandomize is provided
+            if (onRandomize) {
+                const genreNuance = `${newResult.category} ${newResult.nuance || ''}`.trim();
+                await onRandomize(genreNuance);
+            }
+        } catch (error) {
+            console.error('Error in randomization:', error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -47,10 +61,17 @@ export default function RandomizeButton({ genres }: RandomCombinationProps) {
                 <button
                     onClick={handleRandomize}
                     type="button"
-                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-md shadow-sm transition-colors duration-200"
-                    disabled={genres.length === 0}
+                    className={`px-4 py-2 ${isLoading
+                        ? 'bg-gray-400'
+                        : 'bg-purple-600 hover:bg-purple-700'
+                        } text-white font-medium rounded-md shadow-sm transition-colors duration-200`}
+                    disabled={genres.length === 0 || isLoading || disabled}
                 >
-                    {genres.length === 0 ? 'No genres available' : 'Randomize'}
+                    {genres.length === 0
+                        ? 'No genres available'
+                        : isLoading
+                            ? 'Getting recommendations...'
+                            : 'Randomize'}
                 </button>
             </div>
             {randomResult && (

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { SelectCriteria } from "src/db/schema";
 import { getCriteria, submitCriteria } from "../actions/data";
-import RandomizeButton from "./RandomizeButton";
+
 
 export default function GenreForm() {
     const [genres, setGenres] = useState<SelectCriteria[]>([]);
@@ -72,17 +72,12 @@ export default function GenreForm() {
         }
     };
 
-
     if (loading) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
-            <div className="mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Selection Form</h2>
-            </div>
-
+        <div className="bg-white rounded-lg shadow p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                     <label className="block text-sm font-medium text-gray-700">
@@ -138,10 +133,8 @@ export default function GenreForm() {
                     </p>
                 )}
             </form>
-            <div className="mt-8">
-                <RandomizeButton genres={genres} />
-            </div>
-            <div className="flex justify-between items-start mt-6">
+
+            <div className="flex justify-start gap-8 items-start mt-6">
                 <div className="mt-6">
                     <h3 className="text-lg font-bold text-gray-700 mb-2">Genres:</h3>
                     <ul className="space-y-1">
@@ -161,8 +154,7 @@ export default function GenreForm() {
                                 <li key={genre.nuance} className="text-sm text-gray-600">
                                     {genre.nuance}
                                 </li>
-                            )
-
+                            );
                         })}
                     </ul>
                 </div>

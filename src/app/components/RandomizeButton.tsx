@@ -57,7 +57,7 @@ export default function RandomizeButton({ genres, onRandomize, disabled }: Rando
     return (
         <div className="p-4 bg-gray-50 rounded-lg">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold text-gray-700">Random Combination</h3>
+                <h3 className="text-lg font-bold text-gray-700">А что читать то будем?</h3>
                 <button
                     onClick={handleRandomize}
                     type="button"
@@ -71,7 +71,7 @@ export default function RandomizeButton({ genres, onRandomize, disabled }: Rando
                         ? 'No genres available'
                         : isLoading
                             ? 'Getting recommendations...'
-                            : 'Randomize'}
+                            : 'Подскажи'}
                 </button>
             </div>
             {randomResult && (
